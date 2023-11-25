@@ -6,7 +6,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const CustomerRouter = require("./router/Customers");
 
-app.use(express.static(path.join(__dirname + '/public')));
+//app.use(express.static(path.join(__dirname + '/public')));
+app.use('/public/Customer', express.static(path.join(__dirname, '/public/Customer')));
 app.use(express.json());
 app.use(cors());
 

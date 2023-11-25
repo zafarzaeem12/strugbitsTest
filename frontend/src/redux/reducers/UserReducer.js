@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AddUser, RemoveUser, SearchUser } from '../thunk/UserReducers';
+import { AddCustomer, getCustomer, getCustomerDetails,updateCustomer } from '../thunk/UserReducers';
 
 const UserSlice = createSlice({
   name: 'User',
@@ -9,44 +9,55 @@ const UserSlice = createSlice({
     error: null,
   },
   extraReducers(builder) {
-    builder.addCase(AddUser.pending, (state, action) => {
+    builder.addCase(AddCustomer.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(AddUser.fulfilled, (state, action) => {
+    builder.addCase(AddCustomer.fulfilled, (state, action) => {
       state.isLoading = false;
-      if (action.payload !== null && action.payload !== undefined) {
-        state.data.push(action.payload);
-      }
+      state.data = action.payload;
     });
-    builder.addCase(AddUser.rejected, (state, action) => {
+    builder.addCase(AddCustomer.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error;
     });
     // ----------------------------------------------------------------------------------
-    builder.addCase(RemoveUser.pending, (state, action) => {
+    builder.addCase(getCustomer.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(RemoveUser.fulfilled, (state, action) => {
+    builder.addCase(getCustomer.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data.pop(action.payload);
+      state.data = action.payload.data;
     });
-    builder.addCase(RemoveUser.rejected, (state, action) => {
+    builder.addCase(getCustomer.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error;
     });
 
     // ----------------------------------------------------------------------------------
-    builder.addCase(SearchUser.pending, (state, action) => {
+    builder.addCase(getCustomerDetails.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(SearchUser.fulfilled, (state, action) => {
+    builder.addCase(getCustomerDetails.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload;
     });
-    builder.addCase(SearchUser.rejected, (state, action) => {
+    builder.addCase(getCustomerDetails.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error;
     });
+
+    // ----------------------------------------------------------------------------------
+    builder.addCase(updateCustomer.pending, (state, action) => {
+        state.isLoading = true;
+      });
+      builder.addCase(updateCustomer.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      });
+      builder.addCase(updateCustomer.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error;
+      });
   },
 });
 

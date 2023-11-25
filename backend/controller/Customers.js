@@ -35,6 +35,7 @@ const createCustomer = async (req,res,next) => {
     })
 
   }catch(err){
+    console.log("==============>",err)
     res.status(500).json({
       message : "Custometer not found",
       status : 0
