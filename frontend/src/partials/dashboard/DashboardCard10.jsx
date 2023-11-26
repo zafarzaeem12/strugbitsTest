@@ -1,5 +1,6 @@
 import React from 'react';
 import {  useNavigate } from 'react-router-dom';
+import { deleteCustomer } from '../../redux/thunk/UserReducers'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch , useSelector} from 'react-redux'
@@ -59,6 +60,11 @@ function DashboardCard10({fetchCustomers}) {
   navigate(`/customer/${customer._id}`)
   }
 
+  const handledelete = (e ,customer) => {
+    const bodyparams = { id : customer._id};
+    dispatch(deleteCustomer(bodyparams))
+    
+  }
   
   return (
     <div className="col-span-full xl:col-span-12 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
@@ -117,7 +123,7 @@ function DashboardCard10({fetchCustomers}) {
                       <td className="p-2 whitespace-nowrap">
                         <div className='flex flex-row space-x-4'>
                           <div className="text-lg text-center">  <FontAwesomeIcon icon={faEdit} onClick={(e)=>handlecontrol(e,customer)} className="text-blue-500 cursor-pointer" /></div>
-                          <div className="text-lg text-center"> <FontAwesomeIcon icon={faTrash} className="text-red-500 cursor-pointer" /></div>
+                          <div className="text-lg text-center"> <FontAwesomeIcon icon={faTrash} onClick={(e)=>handledelete(e,customer)} className="text-red-500 cursor-pointer" /></div>
                         </div>
                        
                       </td>

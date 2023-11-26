@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from "axios";
 const liveUrl = 'http://localhost:3005/admin/api'
 
+//create customer api start here
 const AddCustomer = createAsyncThunk('user/add', async (data) => {
     try {
         const bodydata = new FormData();
@@ -22,7 +23,9 @@ const AddCustomer = createAsyncThunk('user/add', async (data) => {
         console.log('error', error)
     }
 });
+//create api end here
 
+//get all customer data api start here
 const getCustomer = createAsyncThunk('user/get', async (data) => {
     try {
         const response = await axios.get(`${liveUrl}/get`)
@@ -31,6 +34,9 @@ const getCustomer = createAsyncThunk('user/get', async (data) => {
         console.log('error', error)
     }
 });
+//get all customer data api end here
+
+// get customer by id api start here
 const getCustomerDetails = createAsyncThunk('user/details', async (bodyParams) => {
     try {
         const id = bodyParams.id
@@ -40,7 +46,9 @@ const getCustomerDetails = createAsyncThunk('user/details', async (bodyParams) =
         console.log('error', error)
     }
 });
+// get customer by id api end here
 
+// update customer api start here
 const updateCustomer = createAsyncThunk('user/update', async (data) => {
     try {
         const bodydata = new FormData();
@@ -62,15 +70,23 @@ const updateCustomer = createAsyncThunk('user/update', async (data) => {
         console.log('error', error)
     }
 });
-const RemoveUser = createAsyncThunk('user/logout', async (data) => {
+// update customer api end here
 
-  //const response = await PostFunction(link, data);
- // return response;
+// delete customer api start here
+const deleteCustomer = createAsyncThunk('user/delete', async (data) => {
+    try {
+        const id = data.id
+        const response = await axios.delete(`${liveUrl}/delete/${id}`)
+        return response.data;
+    } catch (error) {
+        console.log('error', error)
+    }
 });
-
-const SearchUser = createAsyncThunk('user/search', async (data) => {
- 
-//   const response = await PostFunction(link, data);
-//   return response;
-});
-export { AddCustomer ,getCustomer , getCustomerDetails,updateCustomer };
+// delete customer api end here
+export {
+    AddCustomer,
+    getCustomer, 
+    getCustomerDetails,
+    updateCustomer,
+    deleteCustomer
+};

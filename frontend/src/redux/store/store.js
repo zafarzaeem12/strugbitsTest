@@ -12,22 +12,21 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-// Import the appropriate storage module
-import storage from 'redux-persist/lib/storage/session'; // Use 'session' for sessionStorage
 
-// Import your reducers
+import storage from 'redux-persist/lib/storage/session';
+
 import { UserReducers } from '../reducers/UserReducer';
 
-// Combine your reducers
+
 const Rootreducers = combineReducers({
   users: UserReducers,
 });
 
-// Configuration for redux-persist
+
 const persistConfig = {
   key: 'root',
   version: 1,
-  storage, // Use 'storage' instead of AsyncStorage
+  storage, 
 };
 
 const persistedReducer = persistReducer(persistConfig, Rootreducers);

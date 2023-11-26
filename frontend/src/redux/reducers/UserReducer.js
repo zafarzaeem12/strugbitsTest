@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AddCustomer, getCustomer, getCustomerDetails,updateCustomer } from '../thunk/UserReducers';
+import { AddCustomer, getCustomer, getCustomerDetails,updateCustomer,deleteCustomer } from '../thunk/UserReducers';
 
 const UserSlice = createSlice({
   name: 'User',
@@ -9,6 +9,7 @@ const UserSlice = createSlice({
     error: null,
   },
   extraReducers(builder) {
+    // ----------------------------------- for create customers api -----------------------------------------------
     builder.addCase(AddCustomer.pending, (state, action) => {
       state.isLoading = true;
     });
@@ -20,7 +21,7 @@ const UserSlice = createSlice({
       state.isLoading = false;
       state.error = action.error;
     });
-    // ----------------------------------------------------------------------------------
+    // ----------------------------------- for all customers fetched api -----------------------------------------------
     builder.addCase(getCustomer.pending, (state, action) => {
       state.isLoading = true;
     });
@@ -33,7 +34,7 @@ const UserSlice = createSlice({
       state.error = action.error;
     });
 
-    // ----------------------------------------------------------------------------------
+    // --------------------------------for customer get by id api --------------------------------------------------
     builder.addCase(getCustomerDetails.pending, (state, action) => {
       state.isLoading = true;
     });
@@ -46,7 +47,7 @@ const UserSlice = createSlice({
       state.error = action.error;
     });
 
-    // ----------------------------------------------------------------------------------
+    // ----------------------------------for update api ------------------------------------------------
     builder.addCase(updateCustomer.pending, (state, action) => {
         state.isLoading = true;
       });
@@ -58,6 +59,19 @@ const UserSlice = createSlice({
         state.isLoading = false;
         state.error = action.error;
       });
+
+      // ---------------------------- for delete api------------------------------------------------------
+    builder.addCase(deleteCustomer.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteCustomer.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.data = action.payload;
+    });
+    builder.addCase(deleteCustomer.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error;
+    });
   },
 });
 
