@@ -99,7 +99,7 @@ function DashboardCard10({fetchCustomers}) {
             {/* Table body */}
             <tbody className="text-sm divide-y divide-slate-100 dark:divide-slate-700">
               {
-                fetchCustomers.map(customer => {
+                fetchCustomers?.map(customer => {
                   return (
                     <tr key={customer._id}>
                       <td className="p-2 whitespace-nowrap">
