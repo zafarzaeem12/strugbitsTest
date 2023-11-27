@@ -72,11 +72,12 @@ function CustomerDetails() {
     const id = window.location.href.split('/').pop()
     const bodyParams = { id: id };
     dispatch(getCustomerDetails(bodyParams));
+   
   }
 
   useEffect(()=>{
     handleDetail()
-  },[])
+  },[dispatch])
   
   return (
     <div className="flex h-screen overflow-hidden">
