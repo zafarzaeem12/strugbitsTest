@@ -15,7 +15,7 @@ const UserSlice = createSlice({
     });
     builder.addCase(AddCustomer.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data = action.payload;
+      state.data = [ ...state.data , action.payload] ;
     });
     builder.addCase(AddCustomer.rejected, (state, action) => {
       state.isLoading = false;
@@ -27,7 +27,7 @@ const UserSlice = createSlice({
     });
     builder.addCase(getCustomer.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data = action.payload.data;
+      state.data =  action.payload.data;
     });
     builder.addCase(getCustomer.rejected, (state, action) => {
       state.isLoading = false;
@@ -66,7 +66,10 @@ const UserSlice = createSlice({
     });
     builder.addCase(deleteCustomer.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data = action.payload;
+      const deletedCustomerId = action.payload.data._id;
+      state.data = state.data.filter(customer =>  customer.id !== deletedCustomerId);
+      window.location.reload();
+     
     });
     builder.addCase(deleteCustomer.rejected, (state, action) => {
       state.isLoading = false;

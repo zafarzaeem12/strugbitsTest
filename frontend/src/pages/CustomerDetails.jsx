@@ -36,7 +36,7 @@ function CustomerDetails() {
     name: datas ? datas.name :  '',
     username: datas ? datas.username :  '',
     email: datas ? datas.email :  '',
-    profilePicture: null, // We'll use this for the profile picture
+    profilePicture: null,
   });
 
   const handleChange = (e) => {

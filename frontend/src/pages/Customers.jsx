@@ -1,7 +1,7 @@
 import React, { useState , useEffect} from 'react';
 import {  useNavigate } from 'react-router-dom';
 import { useDispatch , useSelector} from 'react-redux'
-import {getCustomer} from '../redux/thunk/UserReducers'
+import {getCustomer , deleteCustomer} from '../redux/thunk/UserReducers'
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import WelcomeBanner from '../partials/dashboard/WelcomeBanner';
@@ -24,25 +24,24 @@ import DashboardCard13 from '../partials/dashboard/DashboardCard13';
 import Banner from '../partials/Banner';
 
 function Customers() {
-  const customers = useSelector((state) => state.users.data )
+  const customeres = useSelector((state) => state.users.data )
 
-  const customers1 = useSelector((state) => state )
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [fetchCustomers , SetfetchCustomers] = useState([])
+
 
   const handlefunction = () => {
     navigate('/newcustomer');
   };
-
+  const handleDelete = (customerId) => {
+    dispatch(deleteCustomer({ id: customerId }));
+  }
   useEffect(() => {
    dispatch(getCustomer());
-   SetfetchCustomers(customers)
-  },[fetchCustomers])
+  },[dispatch])
 
 
-console.log("kkk",customers1)
   return (
     <div className="flex h-screen overflow-hidden">
 
@@ -87,7 +86,7 @@ console.log("kkk",customers1)
             {/* Cards */}
             <div className="grid grid-cols-12 gap-6">
                  {/* Card (Customers) */}
-              <DashboardCard10 fetchCustomers={fetchCustomers} />
+              <DashboardCard10 fetchCustomers={customeres} onDelete={handleDelete} />
               {/* Line chart (Acme Plus)
               <DashboardCard01 /> */}
               {/* Line chart (Acme Advanced) */}

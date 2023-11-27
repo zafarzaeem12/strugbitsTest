@@ -1,6 +1,5 @@
 import React from 'react';
-import {  useNavigate } from 'react-router-dom';
-import { deleteCustomer } from '../../redux/thunk/UserReducers'
+import {  useNavigate } from 'react-router-dom';  
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch , useSelector} from 'react-redux'
@@ -10,7 +9,7 @@ import Image03 from '../../images/user-36-07.jpg';
 import Image04 from '../../images/user-36-08.jpg';
 import Image05 from '../../images/user-36-09.jpg';
 const liveUrl = 'http://localhost:3005'
-function DashboardCard10({fetchCustomers}) {
+function DashboardCard10({fetchCustomers , onDelete}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -20,9 +19,7 @@ function DashboardCard10({fetchCustomers}) {
   }
 
   const handledelete = (e ,customer) => {
-    const bodyparams = { id : customer._id};
-    dispatch(deleteCustomer(bodyparams))
-    
+    onDelete(customer._id)
   }
   
   return (
@@ -58,6 +55,8 @@ function DashboardCard10({fetchCustomers}) {
             {/* Table body */}
             <tbody className="text-sm divide-y divide-slate-100 dark:divide-slate-700">
               {
+                fetchCustomers && 
+                fetchCustomers.length > 0 ? 
                 fetchCustomers?.map(customer => {
                   return (
                     <tr key={customer._id}>
@@ -89,6 +88,10 @@ function DashboardCard10({fetchCustomers}) {
                     </tr>
                   )
                 })
+                : 
+                <div className='p-2'>
+                  <h6>No Customer data found</h6>
+                </div>
               }
             </tbody>
           </table>

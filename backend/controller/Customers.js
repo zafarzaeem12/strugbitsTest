@@ -124,10 +124,11 @@ try{
     return res.status(404).send({ message : "No Customer found" , status : 0})
   }
 
-   await Customers.deleteOne({_id : customerId});
+   const deletdCustomer = await Customers.findByIdAndDelete({_id : customerId});
   res.status(200).send({
     message : "Customer deleted successfully",
-    status : 1
+    status : 1,
+    data : deletdCustomer
   })
 }catch(err){
   res.status(200).send({
